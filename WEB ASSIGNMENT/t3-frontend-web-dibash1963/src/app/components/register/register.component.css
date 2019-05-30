@@ -1,0 +1,14 @@
+#register{
+  margin-top: 120px;
+  max-width: 600px;
+  height: 320px;
+  border: 1px solid #9C9C9C;
+  background-color: #EAEAEA;
+}
+#register #registerfrm {
+  padding: 20px;
+}
+
+#register #registerfrm #login-link {
+  margin-top: -85px;
+}

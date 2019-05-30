@@ -1,0 +1,14 @@
+#lgn-form {
+  margin-top: 120px;
+  max-width: 600px;
+  height: 320px;
+  border: 1px solid #9C9C9C;
+  background-color: #EAEAEA;
+}
+#lgn-form #loginfrm {
+  padding: 20px;
+}
+
+#lgn-form #loginfrm #register-link {
+  margin-top: -85px;
+}
