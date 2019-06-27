@@ -36,11 +36,13 @@ export class TodoService {
   var today = new Date().toJSON().slice(0,10).replace(/-/g,'/');
   var tomorrow = new Date(new Date().setDate(new Date().getDate() + 1)).toJSON().slice(0,10).replace(/-/g,'/');
 
-  // var incomingDate = new Date(todoDate);
-  // var updatedDate = incomingDate.toJSON().slice(0,10).replace(/-/g,'/');
-  // console.log(updatedDate)
-  
-  var storeDate = (todoDate == "TODAY") ? today : ((todoDate == "TOMORROW") ? tomorrow : todoDate);
+  if(todoDate == "TODAY"){
+    var storeDate = today;
+  }else if(todoDate == "TOMORROW"){
+    var storeDate = tomorrow;
+  }else{
+    var storeDate = new Date(new Date().setDate(new Date(todoDate).getDate() + 1)).toJSON().slice(0,10).replace(/-/g,'/');
+  }
 
   return this.http.post('http://localhost:3006/v1/updateToDo',{
     action: todoCategory, title: todoTitle,

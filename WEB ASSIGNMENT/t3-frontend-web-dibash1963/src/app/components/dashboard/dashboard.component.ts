@@ -50,6 +50,11 @@ export class DashboardComponent implements OnInit {
       .pipe(first())
       .subscribe(
           data => {
+              var datas = data.map(function (tdo) {
+                tdo.date = new Date(tdo.date).toJSON().slice(0,10).replace(/-/g,'/');
+                return tdo;
+              });
+              
               this.existingToDos = data;
           },
           error => {

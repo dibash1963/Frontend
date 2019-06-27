@@ -1,9 +1,12 @@
 <h2>
+  
 	Welcome {{user}}.
+ <a style="float:right;" (click)="doneToDo(todo.id);" class ="btn btn-secondary">Logout</a>
+ <a style="float:right;" (click)="doneToDo(todo.id);" class ="btn btn-secondary">Edit profile</a>
+ <a style="float:right;" (click)="doneToDo(todo.id);" class ="btn btn-secondary">+</a>
+   
 </h2>
  
-
-
 
 <form [formGroup]="todoForm" (ngSubmit)="onSubmit()" id="todofrm">
   <div class="cont_principal">
