@@ -11,11 +11,11 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   register(user: any) {
-        return this.http.post('http://localhost:3005/v1/users', user);
+        return this.http.post('http://localhost:3006/v1/users', user);
   }
 
   login(username: string, password: string) {
-        return this.http.post<any>('http://localhost:3005/v1/auth', { username: username, password: password })
+        return this.http.post<any>('http://localhost:3006/v1/auth', { username: username, password: password })
             .pipe(map(user => {
                 if (user) {
                     localStorage.setItem('currentUser', JSON.stringify(user));
