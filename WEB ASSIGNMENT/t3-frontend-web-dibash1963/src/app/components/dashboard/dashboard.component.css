@@ -302,7 +302,7 @@ list-style-type: none;
   display: inline-block;
     width: 35px;
     height: 30px;
-    background-color: #4C75A1;
+    /*background-color: #4C75A1;*/
     padding: 5px 3px;
     /*border-radius: 50%;*/
     color: #fff;
