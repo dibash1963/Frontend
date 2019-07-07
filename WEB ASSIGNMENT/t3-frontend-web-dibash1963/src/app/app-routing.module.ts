@@ -17,6 +17,10 @@ const routes: Routes = [
 	{
 		path : 'dashboard',
 		component: DashboardComponent
+	},
+	{
+		path : 'user/edit/:id',
+		component: RegisterComponent
 	}
 ];
 

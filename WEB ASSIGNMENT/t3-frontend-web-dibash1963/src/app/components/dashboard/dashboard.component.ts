@@ -15,6 +15,7 @@ import { AlertService } from '../../services/alert.service';
 export class DashboardComponent implements OnInit {
   todoForm: FormGroup;
   user;
+  userId;
   t=0;
   classNameActive=false;
   contador=0;
@@ -37,6 +38,7 @@ export class DashboardComponent implements OnInit {
       this.router.navigate(['/login']);
     }
     this.user = JSON.parse(currentUser).message.user.username;
+    this.userId = JSON.parse(currentUser).message.user.id;
 
      this.todoForm = this.formBuilder.group({
             todoTitle: ['', Validators.required],
@@ -51,11 +53,11 @@ export class DashboardComponent implements OnInit {
       .subscribe(
           data => {
               var datas = data.map(function (tdo) {
-                tdo.date = new Date(tdo.date).toJSON().slice(0,10).replace(/-/g,'/');
+                tdo.date = new Date(new Date().setDate(new Date().getDate(tdo.date))).toJSON().slice(0,10).replace(/-/g,'/');
                 return tdo;
               });
               
-              this.existingToDos = data;
+              this.existingToDos = datas;
           },
           error => {
               this.alertService.error(error);
@@ -63,7 +65,6 @@ export class DashboardComponent implements OnInit {
           });
   }
 
-  // convenience getter for easy access to form fields
     get f() { return this.todoForm.controls; }
 
   addNewItem(){
@@ -122,6 +123,16 @@ editToDo(id){
   this.individualToDo = toDo[0];
 }
 
+editUser(id){
+  this.addUser();
+  this.submitted = false;
+  let user = this.existingUser.filter(function(todo) {
+    if(id == user.id) return user;
+  });
+
+  this.individualToDo = toDo[0];
+}
+
 deleteToDo(id){
   this.loading = true;
 
@@ -154,6 +165,11 @@ doneToDo(id){
               this.loading = false;
           });
 
+}
+
+userLogout(){
+  localStorage.removeItem('currentUser');
+  this.router.navigate(['/login']);
 }
 
 

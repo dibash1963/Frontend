@@ -13,6 +13,14 @@ export class AuthService {
   register(user: any) {
         return this.http.post('http://localhost:3006/v1/users', user);
   }
+  updateUser(id:number,username:string,password:string){
+
+          return this.http.post('http://localhost:3006/v1/updateUser',{
+          username:username,
+          password:password,
+          id:id
+  });
+  }
 
   login(username: string, password: string) {
         return this.http.post<any>('http://localhost:3006/v1/auth', { username: username, password: password })

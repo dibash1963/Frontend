@@ -34,14 +34,14 @@ export class TodoService {
   
   updateToDo(todoId: number, todoCategory: string, todoTitle: string, todoDate:string, todoDescription: string){
   var today = new Date().toJSON().slice(0,10).replace(/-/g,'/');
-  var tomorrow = new Date(new Date().setDate(new Date().getDate() + 1)).toJSON().slice(0,10).replace(/-/g,'/');
+  var tomorrow = new Date(new Date().setDate(new Date().getDate()+1)).toJSON().slice(0,10).replace(/-/g,'/');
 
   if(todoDate == "TODAY"){
     var storeDate = today;
   }else if(todoDate == "TOMORROW"){
     var storeDate = tomorrow;
   }else{
-    var storeDate = new Date(new Date().setDate(new Date(todoDate).getDate() + 1)).toJSON().slice(0,10).replace(/-/g,'/');
+    var storeDate = new Date(new Date().setDate(new Date(todoDate).getDate())).toJSON().slice(0,10).replace(/-/g,'/');
   }
 
   return this.http.post('http://localhost:3006/v1/updateToDo',{
