@@ -11,6 +11,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ImageComponent } from './components/image/image.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     LoginComponent,
     RegisterComponent,
     AlertComponent,
-    DashboardComponent
+    DashboardComponent,
+    ImageComponent
   ],
   imports: [
     HttpClientModule,

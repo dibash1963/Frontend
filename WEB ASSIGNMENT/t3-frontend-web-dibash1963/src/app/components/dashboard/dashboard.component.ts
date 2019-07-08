@@ -48,12 +48,13 @@ export class DashboardComponent implements OnInit {
         });
 
      //Fetch the already existing todos
-     this.todoService.fetchToDos()
+     this.todoService.fetchToDos(this.userId)
       .pipe(first())
       .subscribe(
           data => {
+            console.log(data,'hgjkhklm')
               var datas = data.map(function (tdo) {
-                tdo.date = new Date(new Date().setDate(new Date().getDate(tdo.date))).toJSON().slice(0,10).replace(/-/g,'/');
+                // tdo.date = new Date(new Date().setDate(new Date().getUTCDate(tdo.date))).toJSON().slice(0,10).replace(/-/g,'/');
                 return tdo;
               });
               
@@ -99,7 +100,7 @@ onSubmit(){
               this.loading = false;
           });
   }else{
-    this.todoService.addToDo(this.f.todoCategory.value, this.f.todoTitle.value, this.f.todoDate.value, this.f.todoDescription.value)
+    this.todoService.addToDo(this.userId, this.f.todoCategory.value, this.f.todoTitle.value, this.f.todoDate.value, this.f.todoDescription.value)
       .pipe(first())
       .subscribe(
           data => {

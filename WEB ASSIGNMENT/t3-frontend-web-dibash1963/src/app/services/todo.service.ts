@@ -8,7 +8,7 @@ export class TodoService {
 
   constructor(private http: HttpClient) { }
 
-  addToDo(todoCategory: string, todoTitle: string, todoDate:string, todoDescription: string){
+  addToDo(userId: number, todoCategory: string, todoTitle: string, todoDate:string, todoDescription: string){
 	var today = new Date().toJSON().slice(0,10).replace(/-/g,'/');
 	var tomorrow = new Date(new Date().setDate(new Date().getDate() + 1)).toJSON().slice(0,10).replace(/-/g,'/');;
 	
@@ -16,12 +16,13 @@ export class TodoService {
 
 	return this.http.post('http://localhost:3006/v1/addtodo',{
 		action: todoCategory, title: todoTitle,
-		date: storeDate, description: todoDescription
+		date: storeDate, description: todoDescription,
+    userId: userId
 	});
   }
 
-  fetchToDos(){
-  	return this.http.get('http://localhost:3006/v1/todos');
+  fetchToDos(userId: number){
+  	return this.http.post('http://localhost:3006/v1/todos', {userId: userId});
   }
 
   deleteToDo(id: number){
@@ -48,5 +49,9 @@ export class TodoService {
     action: todoCategory, title: todoTitle,
     date: storeDate, description: todoDescription, id: todoId
   });
+  }
+
+  uploadImage(file: File){
+    return this.http.post('http://localhost:3006/upload', {images: file});
   }
 }

@@ -18,6 +18,7 @@ export class RegisterComponent implements OnInit {
     loading = false;
     submitted = false;
     id = 0;
+    lclStorage = null;
     loggedUser = [];
 
     constructor(
@@ -29,16 +30,21 @@ export class RegisterComponent implements OnInit {
 
     ngOnInit() {
 
-        const lclStorage = JSON.parse(localStorage.getItem('currentUser'));
+        this.lclStorage = JSON.parse(localStorage.getItem('currentUser'));
 
         this.id = this.activatedRoute.snapshot.paramMap.get("id");
         
-        if(lclStorage != null && this.id == null){
+        if(this.lclStorage != null && this.id == null){
             this.router.navigate(['/dashboard']);
         }
 
-        if(lclStorage != null){
-            this.loggedUser = lclStorage.message.user;
+        if(this.lclStorage != null){
+            this.loggedUser = this.lclStorage.message.user;
+        }
+
+        if(this.loggedUser.id != this.id){
+            this.alertService.error('You are not allowed to access this page.', true);
+            this.router.navigate(['/dashboard']);
         }
 
         this.registerForm = this.formBuilder.group({
@@ -63,17 +69,21 @@ export class RegisterComponent implements OnInit {
 
         this.loading = true;
         if(this.loggedUser.id){
-            this.authService.updateUser(this.loggedUser.id, this.registerForm.value.username,this.registerForm.value.password)
-                   
-      .subscribe(
-          data => {
-              this.alertService.success('User updated successfully.', true);
-              this.router.navigate(['/dashboard']);
-          },
-          error => {
-              this.alertService.error(error);
-              this.loading = false;
-          });
+            this.authService.updateUser(this.loggedUser.id, this.registerForm.value.username,this.registerForm.value.password)    
+              .subscribe(
+                  data => {
+                    var oldUser = this.lclStorage;
+                    oldUser.message.msg = data.message.msg;
+                    oldUser.message.user.username = data.message.username;
+                    oldUser.message.user.password = data.message.password;
+                    localStorage.setItem('currentUser', JSON.stringify(oldUser));
+                      this.alertService.success('User updated successfully.', true);
+                      this.router.navigate(['/dashboard']);
+                  },
+                  error => {
+                      this.alertService.error(error);
+                      this.loading = false;
+                  });
         }else{
             this.authService.register(this.registerForm.value)
             .pipe(first())
