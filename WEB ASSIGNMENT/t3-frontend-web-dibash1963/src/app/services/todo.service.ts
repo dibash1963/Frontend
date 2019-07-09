@@ -36,7 +36,6 @@ export class TodoService {
   updateToDo(todoId: number, todoCategory: string, todoTitle: string, todoDate:string, todoDescription: string){
   var today = new Date().toJSON().slice(0,10).replace(/-/g,'/');
   var tomorrow = new Date(new Date().setDate(new Date().getDate()+1)).toJSON().slice(0,10).replace(/-/g,'/');
-
   if(todoDate == "TODAY"){
     var storeDate = today;
   }else if(todoDate == "TOMORROW"){
